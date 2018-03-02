@@ -3,7 +3,7 @@ import {FormControl, Validators} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from '../../services/authentication.service';
-import * as sweetalert from 'sweetalert';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'login-form',
@@ -40,7 +40,7 @@ export class LoginFormComponent implements OnInit {
     this.http.post('http://localhost:3000/api/login', user, config)
     .subscribe(res=>{
       console.log(res);
-      let token = res.token;
+      let token = res["token"];
         if (token) {
             // set token property
             this.token = token;
@@ -48,11 +48,11 @@ export class LoginFormComponent implements OnInit {
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('user', JSON.stringify({ username: user.username, token: token }));
             this.authenticate.emit();
-            sweetalert("Success",
+            console.log("Success",
                "Welcome, You are now logged in",
                "success");
         }else{
-          sweetalert("Oops",
+          console.log("Oops",
                "Wrong Credentials",
                "error");
         }

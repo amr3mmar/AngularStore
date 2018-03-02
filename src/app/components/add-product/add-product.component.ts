@@ -35,13 +35,11 @@ export class AddProductComponent implements OnInit {
     this.http.post('http://localhost:3000/api/product/createProduct', product, config)
     .subscribe(res=>{
       console.log(res);
-      let product = res.data;
+      let product = res;
         if (product) {
-            sweetalert("Success",
-               "Product Added Successfully",
-               "success");
+            alert("Success Product Added Successfully");
         }else{
-          sweetalert("Oops",
+          console.log("Oops",
                "400 Bad request",
                "error");
         }

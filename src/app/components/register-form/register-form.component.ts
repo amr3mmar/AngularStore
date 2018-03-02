@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, Validators} from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 
 import { AuthenticationService } from '../../services/authentication.service';
 import * as sweetalert from 'sweetalert';
@@ -20,6 +21,7 @@ export class RegisterFormComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
+    private http: HttpClient
   ) {
     this.hide = true;
    }
@@ -36,26 +38,27 @@ export class RegisterFormComponent implements OnInit {
   register(){
     var user = {username:this.username.value,password:this.password.value,
     firstname:this.firstName.value,lastname:this.lastName.value,email:this.email.value};
-    console.log(user)
 
-    this.authenticationService.register(user)
+    var config = {
+      headers : {
+          'Content-Type': 'application/json'
+      }
+    }
+    return this.http.post('http://localhost:3000/api/register', user, config)
     .subscribe(res=>{
       console.log(res);
       let message = res["msg"];
-      console.log(message);
         if (message == "Registered successfully") {
-      //       // set token property
-      //       this.token = token;
-    
-      //       // store username and jwt token in local storage to keep user logged in between page refreshes
-      //       localStorage.setItem('user', JSON.stringify({ username: user.username, token: token }));
-          sweetalert("Success",
-          "User created successfully",
-          "success");
+          alert("Success User created successfully");
         }else{
-          sweetalert("Oops",
-               "Wrong Credentials",
-               "error");
+          alert("Oops Wrong Credentials");
+        }
+      },
+      err => {
+        try {
+          alert("user already exists");
+        } catch (err) {
+          alert('Unexpected error! Server might be down');
         }
       });
   }
