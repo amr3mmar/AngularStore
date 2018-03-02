@@ -54,9 +54,9 @@ export class RegisterFormComponent implements OnInit {
           alert("Oops Wrong Credentials");
         }
       },
-      err => {
+      error => {
         try {
-          alert("user already exists");
+          alert(error.msg);
         } catch (err) {
           alert('Unexpected error! Server might be down');
         }
