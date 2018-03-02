@@ -1,0 +1,19 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row style="display:inline-block;padding-top: 15px;">
+    <span>Custom Toolbar</span>
+    <span class="example-spacer"></span>
+    <button *ngIf="!authenticated" mat-raised-button color="primary" (click)="changeTab('login')" style="float:right">Login</button>
+    <button *ngIf="!authenticated" mat-raised-button color="primary" (click)="changeTab('register')" style="float:right">Register</button>
+    <button *ngIf="authenticated" mat-raised-button color="primary" (click)="logout()" style="float:right">Logout</button>
+    <button *ngIf="authenticated" mat-raised-button color="primary" (click)="changeTab('store')" style="float:right">View Store</button>
+    <button *ngIf="authenticated" mat-raised-button color="primary" (click)="changeTab('add-product')" style="float:right">Add Product</button>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<login-form (authenticate)="authenticate()" *ngIf="currentTab == 'login'"></login-form>
+<register-form *ngIf="currentTab == 'register'"></register-form>
+<store *ngIf="currentTab == 'store'"></store>
+<add-product *ngIf="currentTab == 'add-product'"></add-product>
+<div style="text-align:center">
+    <h1 *ngIf="currentTab == 'welcome'">Welcome</h1>
+</div>

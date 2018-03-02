@@ -1,0 +1,11 @@
+<div class="example-container" style="text-align: center;padding-top:40px">
+  <mat-form-field style="width:50%">
+    <input matInput placeholder="Name" [formControl]="name" required>
+  </mat-form-field>
+  <mat-form-field style="width:50%">
+    <input matInput placeholder="Price" [formControl]="price" required>
+  </mat-form-field>
+  <br>
+  <button mat-raised-button color="primary" (click)="addProduct()">Add Product</button>
+</div>
+    
